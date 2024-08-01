@@ -1,0 +1,11 @@
+name: EastWhitelist
+version: '${version}'
+main: me.eastrane.EastWhitelist
+api-version: '1.18'
+author: EastRane
+load: STARTUP
+commands:
+  eastwhitelist:
+    description: Main command
+    usage: /eastwhitelist
+    aliases: [ew]

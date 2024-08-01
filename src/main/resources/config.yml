@@ -1,0 +1,14 @@
+# EastWhitelist by EastRane
+
+# Language for the plugin.
+# Available options: ru_RU
+language: ru_RU
+
+# If true, players who are not on the whitelist will not be able to join the server
+enabled: true
+
+debug:
+  # If true, debug messages will be logged to the console
+  console: true
+  # If true, debug messages will be written to the debug.yml file
+  file: true
