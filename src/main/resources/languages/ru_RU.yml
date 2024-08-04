@@ -10,10 +10,9 @@ commands:
     &f- &b/ew check <ник>&f: Проверить наличие игрока в вайтлисте.
     &f- &b/ew reload&f: Перезагрузить конфигурацию плагина.
   reload:
-    config_reload_success: '&aФайл конфигурации успешно перезагружен.'
+    success: '&aФайл конфигурации успешно перезагружен.'
   add:
     player_added: '&aИгрок &f%s&a добавлен в вайтлист.'
-    already_present: "&cИгрок &f%s&c уже находится в вайтлисте."
   remove:
     player_removed: '&aИгрок &f%s&a удалён из вайтлиста.'
   list:
@@ -26,8 +25,8 @@ commands:
     success: "&aВайтлист выключен."
     already_disabled: "&cВайтлист уже выключен."
   check:
-    whitelisted: '&aИгрок &f%s&a находится в вайтлисте.'
-    not_whitelisted: '&cИгрок &f%s&c не находится в вайтлисте.'
+    whitelisted: '&aИгрок &f%s&a уже находится в вайтлисте.'
+    not_whitelisted: '&cИгрок &f%s&c ещё не находится в вайтлисте.'
   errors:
     no_permission: "&cУ вас нет права на использование этой команды."
     invalid_subcommand: '&cНеправильная подкоманда. Доступные: &f%s&c.'

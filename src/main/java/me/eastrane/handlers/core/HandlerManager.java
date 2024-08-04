@@ -1,7 +1,6 @@
 package me.eastrane.handlers.core;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.handlers.*;
 
 import java.util.*;
 

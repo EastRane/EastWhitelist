@@ -27,9 +27,8 @@ public class AsyncPlayerPreLoginListener extends BaseListener implements Listene
         return true;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
-        plugin.getDebugManager().sendWarning("async!");
         if (!configManager.isEnabled()) {
             return;
         }

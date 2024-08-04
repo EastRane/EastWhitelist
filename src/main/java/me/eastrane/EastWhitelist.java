@@ -1,7 +1,7 @@
 package me.eastrane;
 
 import me.eastrane.commands.MainCommand;
-import me.eastrane.handlers.APIHandler;
+//import me.eastrane.handlers.APIHandler;
 import me.eastrane.handlers.core.HandlerManager;
 import me.eastrane.listeners.core.ListenerManager;
 import me.eastrane.utilities.ConfigManager;
@@ -18,7 +18,7 @@ public final class EastWhitelist extends JavaPlugin {
     private ListenerManager listenerManager;
     private HandlerManager handlerManager;
 
-    private APIHandler apiHandler;
+    //private APIHandler apiHandler;
 
     @Override
     public void onEnable() {
@@ -39,7 +39,7 @@ public final class EastWhitelist extends JavaPlugin {
     }
 
     private void registerHandlers() {
-        getAPIHandler();
+        //getAPIHandler();
 
     }
 
@@ -80,10 +80,10 @@ public final class EastWhitelist extends JavaPlugin {
         return handlerManager;
     }
 
-    public APIHandler getAPIHandler() {
-        if (apiHandler == null) {
-            apiHandler = (APIHandler) getHandlerManager().getHandler("APIHandler");
-        }
-        return apiHandler;
-    }
+//    public APIHandler getAPIHandler() {
+//        if (apiHandler == null) {
+//            apiHandler = (APIHandler) getHandlerManager().getHandler("APIHandler");
+//        }
+//        return apiHandler;
+//    }
 }

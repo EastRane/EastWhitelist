@@ -14,7 +14,6 @@ public abstract class SubCommand {
 
     public boolean hasPermission(CommandSender sender) {
         String permission = "eastwhitelist." + this.getClass().getSimpleName().toLowerCase().replace("command", "");
-        System.out.println(permission);
         if (sender.hasPermission(permission) || sender.hasPermission("eastwhitelist.admin")) {
             return true;
         }

@@ -29,8 +29,11 @@ public class RemoveCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        dataManager.removePlayer(args[1]);
-        languageManager.sendMessage(sender,"commands.remove.player_removed", args[1]);
+        if (dataManager.removePlayer(args[1])) {
+            languageManager.sendMessage(sender,"commands.remove.player_removed", args[1]);
+        } else {
+            languageManager.sendMessage(sender, "commands.check.not_whitelisted", args[1]);
+        }
     }
 
     @Override

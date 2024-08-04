@@ -1,7 +1,7 @@
 package me.eastrane.utilities;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.api.WhitelistData;
+//import me.eastrane.api.WhitelistData;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -9,7 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class DataManager implements WhitelistData {
+//public class DataManager implements WhitelistData {
+public class DataManager {
     private final DebugManager debugManager;
     private final EastWhitelist plugin;
     private final File dataFile;
@@ -37,6 +38,7 @@ public class DataManager implements WhitelistData {
         dataConfig = YamlConfiguration.loadConfiguration(dataFile);
         if (dataConfig.contains("players")) {
             List<String> playerNames = dataConfig.getStringList("players");
+            players.clear();
             players.addAll(playerNames);
             if (!players.isEmpty()) {
                 debugManager.sendInfo(players.size() + " players was loaded from data file.", true);
@@ -63,10 +65,11 @@ public class DataManager implements WhitelistData {
      *
      * @param player The name of the player to add.
      */
-    @Override
-    public void addPlayer(String player) {
-        players.add(player);
-        saveData();
+    //@Override
+    public boolean addPlayer(String player) {
+        boolean result = players.add(player);
+        if (result) saveData();
+        return result;
     }
 
     /**
@@ -74,10 +77,11 @@ public class DataManager implements WhitelistData {
      *
      * @param player The name of the player to remove.
      */
-    @Override
-    public void removePlayer(String player) {
-        players.remove(player);
-        saveData();
+    //@Override
+    public boolean removePlayer(String player) {
+        boolean result = players.remove(player);
+        if (result) saveData();
+        return result;
     }
 
     /**
@@ -95,7 +99,7 @@ public class DataManager implements WhitelistData {
      * @param player The name of the player to check.
      * @return True if the player is whitelisted, false otherwise.
      */
-    @Override
+    //@Override
     public boolean isPlayerWhitelisted(String player) {
         return players.contains(player);
     }

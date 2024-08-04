@@ -30,13 +30,11 @@ public class AddCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        Set<String> players = dataManager.getPlayers();
-        if (players.contains(args[1])) {
-            languageManager.sendMessage(sender, "commands.add.already_present", args[1]);
-            return;
+        if (dataManager.addPlayer(args[1])) {
+            languageManager.sendMessage(sender,"commands.add.player_added", args[1]);
+        } else {
+            languageManager.sendMessage(sender, "commands.check.whitelisted", args[1]);
         }
-        dataManager.addPlayer(args[1]);
-        languageManager.sendMessage(sender,"commands.add.player_added", args[1]);
     }
 
     @Override
