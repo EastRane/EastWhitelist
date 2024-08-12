@@ -4,8 +4,10 @@ import me.eastrane.commands.MainCommand;
 //import me.eastrane.handlers.APIHandler;
 import me.eastrane.handlers.core.HandlerManager;
 import me.eastrane.listeners.core.ListenerManager;
+import me.eastrane.storages.MySQLStorage;
+import me.eastrane.storages.YamlStorage;
+import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.ConfigManager;
-import me.eastrane.utilities.DataManager;
 import me.eastrane.utilities.DebugManager;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +16,7 @@ public final class EastWhitelist extends JavaPlugin {
     private ConfigManager configManager;
     private LanguageManager languageManager;
     private DebugManager debugManager;
-    private DataManager dataManager;
+    private BaseStorage baseStorage;
     private ListenerManager listenerManager;
     private HandlerManager handlerManager;
 
@@ -34,7 +36,7 @@ public final class EastWhitelist extends JavaPlugin {
         getConfigManager();
         getLanguageManager();
         getDebugManager();
-        getDataManager();
+        getBaseStorage();
         getListenerManager();
     }
 
@@ -61,11 +63,19 @@ public final class EastWhitelist extends JavaPlugin {
         }
         return debugManager;
     }
-    public DataManager getDataManager() {
-        if (dataManager == null) {
-            dataManager = new DataManager(this);
+    public BaseStorage getBaseStorage() {
+        if (baseStorage == null) {
+            switch (getConfigManager().getStorage()) {
+                case "mysql":
+                    baseStorage = new MySQLStorage(this);
+                    break;
+                case "yaml":
+                default:
+                    baseStorage = new YamlStorage(this);
+                    break;
+            }
         }
-        return dataManager;
+        return baseStorage;
     }
     public ListenerManager getListenerManager() {
         if (listenerManager == null) {

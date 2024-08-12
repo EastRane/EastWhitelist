@@ -1,7 +1,7 @@
 package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.utilities.DataManager;
+import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,15 +9,14 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class AddCommand extends SubCommand {
-    private final DataManager dataManager;
+    private final BaseStorage baseStorage;
     private final LanguageManager languageManager;
 
     public AddCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        dataManager = plugin.getDataManager();
+        baseStorage = plugin.getBaseStorage();
         languageManager = plugin.getLanguageManager();
     }
 
@@ -30,7 +29,7 @@ public class AddCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        if (dataManager.addPlayer(args[1])) {
+        if (baseStorage.addPlayer(args[1])) {
             languageManager.sendMessage(sender,"commands.add.player_added", args[1]);
         } else {
             languageManager.sendMessage(sender, "commands.check.whitelisted", args[1]);

@@ -1,7 +1,7 @@
 package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.utilities.DataManager;
+import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Set;
 
 public class CheckCommand extends SubCommand {
-    private final DataManager dataManager;
+    private final BaseStorage baseStorage;
     private final LanguageManager languageManager;
 
     public CheckCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        dataManager = plugin.getDataManager();
+        baseStorage = plugin.getBaseStorage();
         languageManager = plugin.getLanguageManager();
     }
 
@@ -30,7 +30,7 @@ public class CheckCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        Set<String> players = dataManager.getPlayers();
+        Set<String> players = baseStorage.getPlayers();
         if (players.contains(args[1])) {
             languageManager.sendMessage(sender, "commands.check.whitelisted", args[1]);
         } else {

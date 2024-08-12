@@ -1,22 +1,21 @@
 package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.utilities.DataManager;
+import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ListCommand extends SubCommand {
-    private final DataManager dataManager;
+    private final BaseStorage baseStorage;
     private final LanguageManager languageManager;
 
     public ListCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        dataManager = plugin.getDataManager();
+        baseStorage = plugin.getBaseStorage();
         languageManager = plugin.getLanguageManager();
     }
 
@@ -29,7 +28,7 @@ public class ListCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        Set<String> players = dataManager.getPlayers();
+        Set<String> players = baseStorage.getPlayers();
         if (players.isEmpty()) {
             languageManager.sendMessage(sender, "commands.list.empty");
             return;

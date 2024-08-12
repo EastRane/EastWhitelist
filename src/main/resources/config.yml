@@ -7,8 +7,25 @@ language: ru_RU
 # If true, players who are not on the whitelist will not be able to join the server
 enabled: true
 
+# Available options: yaml, mysql
+storage: mysql
+
+mysql:
+  # Database server address
+  host: localhost
+  # Database server port
+  port: 3306
+  # Name of the database to use
+  database: database
+  # Database user
+  username: root
+  # Database password
+  password: password
+  # Name of table in database
+  table: ew_hub
+
 debug:
   # If true, debug messages will be logged to the console
   console: true
   # If true, debug messages will be written to the debug.yml file
-  file: true
+  file: false

@@ -2,13 +2,11 @@ package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
 import me.eastrane.utilities.ConfigManager;
-import me.eastrane.utilities.DataManager;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class EnableCommand extends SubCommand {
     private final ConfigManager configManager;

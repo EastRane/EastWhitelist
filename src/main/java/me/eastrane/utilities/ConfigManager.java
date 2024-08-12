@@ -18,6 +18,7 @@ public class ConfigManager {
     private String language;
     private boolean debugConsole, debugFile;
     private boolean enabled;
+    private String storage, mysqlHost, mysqlPort, mysqlDatabase, mysqlUsername, mysqlPassword, mysqlTable;
 
     public ConfigManager(EastWhitelist plugin) {
         this.plugin = plugin;
@@ -35,6 +36,13 @@ public class ConfigManager {
         debugConsole = config.getBoolean("debug.console");
         debugFile = config.getBoolean("debug.file");
         enabled = config.getBoolean("enabled");
+        storage = config.getString("storage");
+        mysqlHost = config.getString("mysql.host");
+        mysqlPort = config.getString("mysql.port");
+        mysqlDatabase = config.getString("mysql.database");
+        mysqlUsername = config.getString("mysql.username");
+        mysqlPassword = config.getString("mysql.password");
+        mysqlTable = config.getString("mysql.table");
     }
 
     /**
@@ -133,5 +141,26 @@ public class ConfigManager {
         enabled = value;
         config.set("enabled", value);
         saveConfig();
+    }
+    public String getStorage() {
+        return storage;
+    }
+    public String getMysqlHost() {
+        return mysqlHost;
+    }
+    public String getMysqlPort() {
+        return mysqlPort;
+    }
+    public String getMysqlDatabase() {
+        return mysqlDatabase;
+    }
+    public String getMysqlUsername() {
+        return mysqlUsername;
+    }
+    public String getMysqlPassword() {
+        return mysqlPassword;
+    }
+    public String getMysqlTable() {
+        return mysqlTable;
     }
 }
