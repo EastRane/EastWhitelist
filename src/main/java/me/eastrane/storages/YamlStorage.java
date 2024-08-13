@@ -13,13 +13,11 @@ import java.util.List;
 
 public class YamlStorage extends BaseStorage {
     private final DebugManager debugManager;
-    private final EastWhitelist plugin;
     private final File storageFile;
     private FileConfiguration storageConfig;
 
     public YamlStorage(EastWhitelist plugin) {
         super(plugin);
-        this.plugin = plugin;
         this.debugManager = plugin.getDebugManager();
         storageFile = new File(plugin.getDataFolder(), "whitelist.yml");
         if (!storageFile.exists()) {

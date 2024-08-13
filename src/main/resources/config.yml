@@ -8,21 +8,21 @@ language: ru_RU
 enabled: true
 
 # Available options: yaml, mysql
-storage: mysql
+storage: yaml
 
 mysql:
   # Database server address
-  host: localhost
+  host: 'localhost'
   # Database server port
-  port: 3306
+  port: '3306'
   # Name of the database to use
-  database: database
+  database: 'database'
   # Database user
-  username: root
+  username: 'root'
   # Database password
-  password: password
+  password: 'password'
   # Name of table in database
-  table: ew_hub
+  table: 'ew_hub'
 
 debug:
   # If true, debug messages will be logged to the console
