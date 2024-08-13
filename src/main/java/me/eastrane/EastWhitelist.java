@@ -1,8 +1,6 @@
 package me.eastrane;
 
 import me.eastrane.commands.MainCommand;
-//import me.eastrane.handlers.APIHandler;
-import me.eastrane.handlers.core.HandlerManager;
 import me.eastrane.listeners.core.ListenerManager;
 import me.eastrane.storages.MySQLStorage;
 import me.eastrane.storages.YamlStorage;
@@ -18,7 +16,6 @@ public final class EastWhitelist extends JavaPlugin {
     private DebugManager debugManager;
     private BaseStorage baseStorage;
     private ListenerManager listenerManager;
-    private HandlerManager handlerManager;
 
     //private APIHandler apiHandler;
 
@@ -83,17 +80,5 @@ public final class EastWhitelist extends JavaPlugin {
         }
         return listenerManager;
     }
-    public HandlerManager getHandlerManager() {
-        if (handlerManager == null) {
-            handlerManager = new HandlerManager(this);
-        }
-        return handlerManager;
-    }
 
-//    public APIHandler getAPIHandler() {
-//        if (apiHandler == null) {
-//            apiHandler = (APIHandler) getHandlerManager().getHandler("APIHandler");
-//        }
-//        return apiHandler;
-//    }
 }
