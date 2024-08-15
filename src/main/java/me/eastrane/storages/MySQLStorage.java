@@ -2,9 +2,9 @@ package me.eastrane.storages;
 
 import me.eastrane.EastWhitelist;
 import me.eastrane.storages.core.BaseStorage;
+import me.eastrane.storages.core.PlayerData;
 import me.eastrane.utilities.ConfigManager;
 import me.eastrane.utilities.DebugManager;
-import org.bukkit.Bukkit;
 
 import java.sql.*;
 
@@ -27,8 +27,9 @@ public class MySQLStorage extends BaseStorage {
              Statement statement = connection.createStatement()) {
             debugManager.sendInfo("Successfully connected to MySQL.");
             String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "nickname VARCHAR(16) NOT NULL UNIQUE" +
+                    "nickname VARCHAR(16) NOT NULL PRIMARY KEY," +
+                    "added_by VARCHAR(16) NOT NULL," +
+                    "added_at BIGINT NOT NULL" +
                     ");";
             statement.executeUpdate(createTable);
             debugManager.sendInfo("MySQL table initialized.");
@@ -37,6 +38,7 @@ public class MySQLStorage extends BaseStorage {
         }
     }
 
+
     private Connection openConnection() throws SQLException {
         String url = "jdbc:mysql://" + configManager.getMysqlHost() + ":" + configManager.getMysqlPort() + "/" + configManager.getMysqlDatabase();
         return DriverManager.getConnection(url, configManager.getMysqlUsername(), configManager.getMysqlPassword());
@@ -44,45 +46,48 @@ public class MySQLStorage extends BaseStorage {
 
     @Override
     public void loadStorage() {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            players.clear();
-            try (Connection connection = openConnection();
-                 Statement statement = connection.createStatement();
-                 ResultSet playerNames = statement.executeQuery("SELECT nickname FROM " + table)) {
-                while (playerNames.next()) {
-                    players.add(playerNames.getString("nickname"));
-                }
-                if (!players.isEmpty()) {
-                    debugManager.sendInfo(players.size() + " players were loaded from the database.", true);
-                }
-            } catch (SQLException e) {
-                debugManager.sendException(e);
+        try (Connection connection = openConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT nickname, added_by, added_at FROM " + table)) {
+            while (resultSet.next()) {
+                String nickname = resultSet.getString("nickname");
+                String addedBy = resultSet.getString("added_by");
+                long addedAt = resultSet.getLong("added_at");
+                players.put(nickname, new PlayerData(addedBy, addedAt));
             }
-        });
+            if (!players.isEmpty()) {
+                debugManager.sendInfo(players.size() + " players were loaded from the MySQL database.", true);
+            }
+        } catch (SQLException e) {
+            debugManager.sendException(e);
+        }
     }
 
     @Override
-    public boolean addPlayer(String player) {
-        boolean result = players.add(player);
-        if (result) {
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+    public boolean addPlayer(String player, String addedBy) {
+        if (!players.containsKey(player)) {
+            long currentEpochTime = System.currentTimeMillis();
+            players.put(player, new PlayerData(addedBy, currentEpochTime));
+            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
                 try (Connection connection = openConnection();
-                     PreparedStatement statement = connection.prepareStatement("INSERT INTO " + table + " (nickname) VALUES (?)")) {
+                     PreparedStatement statement = connection.prepareStatement("INSERT INTO " + table + " (nickname, added_by, added_at) VALUES (?, ?, ?)")) {
                     statement.setString(1, player);
+                    statement.setString(2, addedBy);
+                    statement.setLong(3, currentEpochTime);
                     statement.executeUpdate();
                 } catch (SQLException e) {
                     debugManager.sendException(e);
                 }
             });
+            return true;
         }
-        return result;
+        return false;
     }
 
     @Override
     public boolean removePlayer(String player) {
-        boolean result = players.remove(player);
-        if (result) {
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        if (players.remove(player) != null) {
+            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
                 try (Connection connection = openConnection();
                      PreparedStatement statement = connection.prepareStatement("DELETE FROM " + table + " WHERE nickname = ?")) {
                     statement.setString(1, player);
@@ -91,7 +96,8 @@ public class MySQLStorage extends BaseStorage {
                     debugManager.sendException(e);
                 }
             });
+            return true;
         }
-        return result;
+        return false;
     }
 }

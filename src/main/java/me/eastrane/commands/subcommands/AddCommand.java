@@ -29,10 +29,10 @@ public class AddCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        if (baseStorage.addPlayer(args[1])) {
+        if (baseStorage.addPlayer(args[1], sender.getName())) {
             languageManager.sendMessage(sender,"commands.add.player_added", args[1]);
         } else {
-            languageManager.sendMessage(sender, "commands.check.whitelisted", args[1]);
+            languageManager.sendMessage(sender, "commands.add.whitelisted", args[1]);
         }
     }
 

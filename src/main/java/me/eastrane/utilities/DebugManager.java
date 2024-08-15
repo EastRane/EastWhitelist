@@ -4,6 +4,7 @@ import me.eastrane.EastWhitelist;
 import org.bukkit.World;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -107,6 +108,12 @@ public class DebugManager {
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
             logToFile("SEVERE", sw.toString());
+        }
+        if (configManager.isMysqlShutdownOnException()) {
+            if (e instanceof SQLException) {
+                sendSevere("SQL exception occurred. Shutting down server...");
+                plugin.getServer().shutdown();
+            }
         }
     }
 }

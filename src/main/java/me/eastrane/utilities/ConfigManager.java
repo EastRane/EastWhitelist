@@ -17,7 +17,7 @@ public class ConfigManager {
     FileConfiguration config;
     private String language;
     private boolean debugConsole, debugFile;
-    private boolean enabled;
+    private boolean enabled, mysqlShutdownOnException;
     private String storage, mysqlHost, mysqlPort, mysqlDatabase, mysqlUsername, mysqlPassword, mysqlTable;
 
     public ConfigManager(EastWhitelist plugin) {
@@ -37,6 +37,7 @@ public class ConfigManager {
         debugFile = config.getBoolean("debug.file");
         enabled = config.getBoolean("enabled");
         storage = config.getString("storage");
+        mysqlShutdownOnException = config.getBoolean("mysql.shutdown_on_exception");
         mysqlHost = config.getString("mysql.host");
         mysqlPort = config.getString("mysql.port");
         mysqlDatabase = config.getString("mysql.database");
@@ -144,6 +145,9 @@ public class ConfigManager {
     }
     public String getStorage() {
         return storage;
+    }
+    public boolean isMysqlShutdownOnException() {
+        return mysqlShutdownOnException;
     }
     public String getMysqlHost() {
         return mysqlHost;

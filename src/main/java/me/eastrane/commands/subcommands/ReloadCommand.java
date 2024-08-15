@@ -1,7 +1,6 @@
 package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 
@@ -26,7 +25,7 @@ public class ReloadCommand extends SubCommand {
             return;
         }
         plugin.getConfigManager().reloadConfig();
-        plugin.getBaseStorage().loadStorage();
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> plugin.getBaseStorage().loadStorage());
         languageManager.sendMessage(sender, "commands.reload.success");
     }
 

@@ -2,14 +2,13 @@ package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
 import me.eastrane.storages.core.BaseStorage;
+import me.eastrane.storages.core.PlayerData;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class CheckCommand extends SubCommand {
     private final BaseStorage baseStorage;
@@ -30,9 +29,11 @@ public class CheckCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        Set<String> players = baseStorage.getPlayers();
-        if (players.contains(args[1])) {
-            languageManager.sendMessage(sender, "commands.check.whitelisted", args[1]);
+        Map<String, PlayerData> players = baseStorage.getPlayers();
+        if (players.containsKey(args[1])) {
+            String addedBy = players.get(args[1]).getAddedBy();
+            String addedAt = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date(players.get(args[1]).getAddedAt()));
+            languageManager.sendMessage(sender, "commands.check.whitelisted", args[1], addedBy, addedAt);
         } else {
             languageManager.sendMessage(sender, "commands.check.not_whitelisted", args[1]);
         }

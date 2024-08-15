@@ -2,12 +2,13 @@ package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
 import me.eastrane.storages.core.BaseStorage;
+import me.eastrane.storages.core.PlayerData;
 import me.eastrane.utilities.LanguageManager;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 public class ListCommand extends SubCommand {
     private final BaseStorage baseStorage;
@@ -28,12 +29,12 @@ public class ListCommand extends SubCommand {
             languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        Set<String> players = baseStorage.getPlayers();
+        Map<String, PlayerData> players = baseStorage.getPlayers();
         if (players.isEmpty()) {
             languageManager.sendMessage(sender, "commands.list.empty");
             return;
         }
-        languageManager.sendMessage(sender,"commands.list.players", String.join(", ", players));
+        languageManager.sendMessage(sender,"commands.list.players", String.join(", ", players.keySet()));
     }
 
     @Override

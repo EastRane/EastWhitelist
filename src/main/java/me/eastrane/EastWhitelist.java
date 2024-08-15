@@ -17,8 +17,6 @@ public final class EastWhitelist extends JavaPlugin {
     private BaseStorage baseStorage;
     private ListenerManager listenerManager;
 
-    //private APIHandler apiHandler;
-
     @Override
     public void onEnable() {
         registerManagers();
