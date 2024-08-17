@@ -2,9 +2,7 @@ package me.eastrane.commands;
 
 import me.eastrane.EastWhitelist;
 import me.eastrane.commands.subcommands.*;
-import me.eastrane.listeners.core.BaseListener;
-import me.eastrane.utilities.DebugManager;
-import me.eastrane.utilities.LanguageManager;
+import me.eastrane.utilities.LanguageProvider;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,12 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 public class MainCommand implements CommandExecutor, TabCompleter {
-    private LanguageManager languageManager;
+    private LanguageProvider languageProvider;
     private EastWhitelist plugin;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
     public MainCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        languageManager = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageManager();
         registerSubCommand("add", new AddCommand(plugin));
         registerSubCommand("remove", new RemoveCommand(plugin));
         registerSubCommand("list", new ListCommand(plugin));
@@ -40,10 +38,10 @@ public class MainCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
             if (sender.hasPermission("eastwhitelist.help")) {
-                languageManager.sendMessage(sender, "commands.help");
+                languageProvider.sendMessage(sender, "commands.help");
                 return true;
             }
-            languageManager.sendMessage(sender, "commands.errors.no_permission");
+            languageProvider.sendMessage(sender, "commands.errors.no_permission");
             return true;
         }
 
@@ -52,7 +50,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
             subCommand.execute(sender, args);
         } else {
             String availableCommands = String.join(", ", subCommands.keySet());
-            languageManager.sendMessage(sender, "commands.errors.invalid_subcommand", availableCommands);
+            languageProvider.sendMessage(sender, "commands.errors.invalid_subcommand", availableCommands);
         }
         return true;
     }

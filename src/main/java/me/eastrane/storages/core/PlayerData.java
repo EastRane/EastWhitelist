@@ -1,7 +1,5 @@
 package me.eastrane.storages.core;
 
-import java.sql.Timestamp;
-
 public class PlayerData {
     private final String addedBy;
     private final long addedAt;

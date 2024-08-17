@@ -1,21 +1,20 @@
 package me.eastrane.utilities;
 
 import me.eastrane.EastWhitelist;
-import org.bukkit.World;
 
 import java.io.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DebugManager {
-    private ConfigManager configManager;
+public class DebugProvider {
+    private ConfigProvider configProvider;
     private final EastWhitelist plugin;
     private final File debugFile;
 
-    public DebugManager(EastWhitelist plugin) {
+    public DebugProvider(EastWhitelist plugin) {
         this.plugin = plugin;
-        configManager = plugin.getConfigManager();
+        configProvider = plugin.getConfigManager();
         debugFile = new File(plugin.getDataFolder(), "debug.yml");
         try {
             debugFile.createNewFile();
@@ -46,10 +45,10 @@ public class DebugManager {
      * @param message The message to send.
      */
     public void sendInfo(String message) {
-        if (configManager.isDebugConsole()) {
+        if (configProvider.isDebugConsole()) {
             plugin.getLogger().info(message);
         }
-        if (configManager.isDebugFile()) {
+        if (configProvider.isDebugFile()) {
             logToFile("INFO", message);
         }
     }
@@ -61,10 +60,10 @@ public class DebugManager {
      * @param isRequiredInConsole Whether the message should be sent to the console regardless of disabled status in configuration
      */
     public void sendInfo(String message, boolean isRequiredInConsole) {
-        if (configManager.isDebugConsole() || isRequiredInConsole) {
+        if (configProvider.isDebugConsole() || isRequiredInConsole) {
             plugin.getLogger().info(message);
         }
-        if (configManager.isDebugFile()) {
+        if (configProvider.isDebugFile()) {
             logToFile("INFO", message);
         }
     }
@@ -76,7 +75,7 @@ public class DebugManager {
      */
     public void sendWarning(String message) {
         plugin.getLogger().warning(message);
-        if (configManager.isDebugFile()) {
+        if (configProvider.isDebugFile()) {
             logToFile("WARNING", message);
         }
     }
@@ -88,7 +87,7 @@ public class DebugManager {
      */
     public void sendSevere(String message) {
         plugin.getLogger().severe(message);
-        if (configManager.isDebugFile()) {
+        if (configProvider.isDebugFile()) {
             logToFile("SEVERE", message);
         }
     }
@@ -103,13 +102,13 @@ public class DebugManager {
         for (StackTraceElement element : e.getStackTrace()) {
             plugin.getLogger().severe("at " + element.toString());
         }
-        if (configManager.isDebugFile()) {
+        if (configProvider.isDebugFile()) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
             logToFile("SEVERE", sw.toString());
         }
-        if (configManager.isMysqlShutdownOnException()) {
+        if (configProvider.isMysqlShutdownOnException()) {
             if (e instanceof SQLException) {
                 sendSevere("SQL exception occurred. Shutting down server...");
                 plugin.getServer().shutdown();

@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 
-public class ConfigManager {
+public class ConfigProvider {
     private final EastWhitelist plugin;
     FileConfiguration config;
     private String language;
@@ -20,7 +20,7 @@ public class ConfigManager {
     private boolean enabled, mysqlShutdownOnException;
     private String storage, mysqlHost, mysqlPort, mysqlDatabase, mysqlUsername, mysqlPassword, mysqlTable;
 
-    public ConfigManager(EastWhitelist plugin) {
+    public ConfigProvider(EastWhitelist plugin) {
         this.plugin = plugin;
         plugin.saveDefaultConfig();
         checkConfig();

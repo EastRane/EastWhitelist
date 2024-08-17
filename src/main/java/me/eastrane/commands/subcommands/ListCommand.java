@@ -3,7 +3,7 @@ package me.eastrane.commands.subcommands;
 import me.eastrane.EastWhitelist;
 import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.storages.core.PlayerData;
-import me.eastrane.utilities.LanguageManager;
+import me.eastrane.utilities.LanguageProvider;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
@@ -12,12 +12,12 @@ import java.util.Map;
 
 public class ListCommand extends SubCommand {
     private final BaseStorage baseStorage;
-    private final LanguageManager languageManager;
+    private final LanguageProvider languageProvider;
 
     public ListCommand(EastWhitelist plugin) {
         this.plugin = plugin;
         baseStorage = plugin.getBaseStorage();
-        languageManager = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageManager();
     }
 
     @Override
@@ -26,15 +26,15 @@ public class ListCommand extends SubCommand {
             return;
         }
         if (args.length != 1) {
-            languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
+            languageProvider.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
         Map<String, PlayerData> players = baseStorage.getPlayers();
         if (players.isEmpty()) {
-            languageManager.sendMessage(sender, "commands.list.empty");
+            languageProvider.sendMessage(sender, "commands.list.empty");
             return;
         }
-        languageManager.sendMessage(sender,"commands.list.players", String.join(", ", players.keySet()));
+        languageProvider.sendMessage(sender,"commands.list.players", String.join(", ", players.keySet()));
     }
 
     @Override

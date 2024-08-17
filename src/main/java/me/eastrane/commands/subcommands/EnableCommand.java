@@ -1,21 +1,21 @@
 package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
-import me.eastrane.utilities.ConfigManager;
-import me.eastrane.utilities.LanguageManager;
+import me.eastrane.utilities.ConfigProvider;
+import me.eastrane.utilities.LanguageProvider;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
 import java.util.List;
 
 public class EnableCommand extends SubCommand {
-    private final ConfigManager configManager;
-    private final LanguageManager languageManager;
+    private final ConfigProvider configProvider;
+    private final LanguageProvider languageProvider;
 
     public EnableCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        configManager = plugin.getConfigManager();
-        languageManager = plugin.getLanguageManager();
+        configProvider = plugin.getConfigManager();
+        languageProvider = plugin.getLanguageManager();
     }
 
     @Override
@@ -24,15 +24,15 @@ public class EnableCommand extends SubCommand {
             return;
         }
         if (args.length != 1) {
-            languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
+            languageProvider.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        if (configManager.isEnabled()) {
-            languageManager.sendMessage(sender, "commands.enable.already_enabled");
+        if (configProvider.isEnabled()) {
+            languageProvider.sendMessage(sender, "commands.enable.already_enabled");
             return;
         }
-        configManager.setEnabled(true);
-        languageManager.sendMessage(sender, "commands.enable.success");
+        configProvider.setEnabled(true);
+        languageProvider.sendMessage(sender, "commands.enable.success");
     }
 
     @Override

@@ -2,7 +2,7 @@ package me.eastrane.commands.subcommands;
 
 import me.eastrane.EastWhitelist;
 import me.eastrane.storages.core.BaseStorage;
-import me.eastrane.utilities.LanguageManager;
+import me.eastrane.utilities.LanguageProvider;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -12,12 +12,12 @@ import java.util.List;
 
 public class RemoveCommand extends SubCommand {
     private final BaseStorage baseStorage;
-    private final LanguageManager languageManager;
+    private final LanguageProvider languageProvider;
 
     public RemoveCommand(EastWhitelist plugin) {
         this.plugin = plugin;
         baseStorage = plugin.getBaseStorage();
-        languageManager = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageManager();
     }
 
     @Override
@@ -26,13 +26,13 @@ public class RemoveCommand extends SubCommand {
             return;
         }
         if (args.length != 2) {
-            languageManager.sendMessage(sender, "commands.errors.too_many_arguments");
+            languageProvider.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
         if (baseStorage.removePlayer(args[1])) {
-            languageManager.sendMessage(sender,"commands.remove.player_removed", args[1]);
+            languageProvider.sendMessage(sender,"commands.remove.player_removed", args[1]);
         } else {
-            languageManager.sendMessage(sender, "commands.check.not_whitelisted", args[1]);
+            languageProvider.sendMessage(sender, "commands.check.not_whitelisted", args[1]);
         }
     }
 

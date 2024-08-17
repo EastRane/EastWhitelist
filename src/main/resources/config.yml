@@ -22,7 +22,8 @@ mysql:
   # Database password
   password: 'password'
   # Name of table in database
-  table: 'ew_hub'
+  # It will also be used in SQLite file name
+  table: 'whitelist'
   # If true, the server will immediately shut down on any SQL exception
   shutdown_on_exception: false
 
