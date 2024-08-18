@@ -14,7 +14,7 @@ public class DebugProvider {
 
     public DebugProvider(EastWhitelist plugin) {
         this.plugin = plugin;
-        configProvider = plugin.getConfigManager();
+        configProvider = plugin.getConfigProvider();
         debugFile = new File(plugin.getDataFolder(), "debug.yml");
         try {
             debugFile.createNewFile();

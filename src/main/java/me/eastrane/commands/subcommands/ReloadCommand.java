@@ -12,7 +12,7 @@ public class ReloadCommand extends SubCommand {
 
     public ReloadCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        languageProvider = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageProvider();
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ReloadCommand extends SubCommand {
             languageProvider.sendMessage(sender, "commands.errors.too_many_arguments");
             return;
         }
-        plugin.getConfigManager().reloadConfig();
+        plugin.getConfigProvider().reloadConfig();
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> plugin.getBaseStorage().loadStorage());
         languageProvider.sendMessage(sender, "commands.reload.success");
     }

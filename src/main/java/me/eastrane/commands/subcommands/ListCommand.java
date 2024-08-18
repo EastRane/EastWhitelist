@@ -17,7 +17,7 @@ public class ListCommand extends SubCommand {
     public ListCommand(EastWhitelist plugin) {
         this.plugin = plugin;
         baseStorage = plugin.getBaseStorage();
-        languageProvider = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageProvider();
     }
 
     @Override

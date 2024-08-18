@@ -30,7 +30,7 @@ public abstract class BaseListener implements Listener {
      */
     protected boolean register() {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        plugin.getDebugManager().sendInfo(this.getClass().getSimpleName() + " was registered.");
+        plugin.getDebugProvider().sendInfo(this.getClass().getSimpleName() + " was registered.");
         isRegistered = true;
         return true;
     }
@@ -44,7 +44,7 @@ public abstract class BaseListener implements Listener {
     protected boolean unregister() {
         if (isReloadable) {
             HandlerList.unregisterAll(this);
-            plugin.getDebugManager().sendInfo(this.getClass().getSimpleName() + " was unregistered.");
+            plugin.getDebugProvider().sendInfo(this.getClass().getSimpleName() + " was unregistered.");
             isRegistered = false;
             return true;
         }

@@ -17,7 +17,7 @@ public abstract class SubCommand {
         if (sender.hasPermission(permission) || sender.hasPermission("eastwhitelist.admin")) {
             return true;
         }
-        plugin.getLanguageManager().sendMessage(sender, "commands.errors.no_permission");
+        plugin.getLanguageProvider().sendMessage(sender, "commands.errors.no_permission");
         return false;
     }
 }

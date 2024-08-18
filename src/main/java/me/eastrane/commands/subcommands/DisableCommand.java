@@ -14,8 +14,8 @@ public class DisableCommand extends SubCommand {
 
     public DisableCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        configProvider = plugin.getConfigManager();
-        languageProvider = plugin.getLanguageManager();
+        configProvider = plugin.getConfigProvider();
+        languageProvider = plugin.getLanguageProvider();
     }
 
     @Override

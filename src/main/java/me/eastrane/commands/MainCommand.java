@@ -20,7 +20,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
     private final Map<String, SubCommand> subCommands = new HashMap<>();
     public MainCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        languageProvider = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageProvider();
         registerSubCommand("add", new AddCommand(plugin));
         registerSubCommand("remove", new RemoveCommand(plugin));
         registerSubCommand("list", new ListCommand(plugin));

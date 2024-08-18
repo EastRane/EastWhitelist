@@ -13,8 +13,8 @@ public abstract class SQLStorage extends BaseStorage {
 
     public SQLStorage(EastWhitelist plugin) {
         super(plugin);
-        this.configProvider = plugin.getConfigManager();
-        this.debugProvider = plugin.getDebugManager();
+        this.configProvider = plugin.getConfigProvider();
+        this.debugProvider = plugin.getDebugProvider();
         this.table = configProvider.getMysqlTable();
         initializeDatabase();
         loadStorage();

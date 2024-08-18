@@ -19,7 +19,7 @@ public class LanguageProvider {
 
     public LanguageProvider(EastWhitelist plugin) {
         this.plugin = plugin;
-        debugProvider = plugin.getDebugManager();
+        debugProvider = plugin.getDebugProvider();
         loadLanguages();
     }
 
@@ -27,7 +27,7 @@ public class LanguageProvider {
      * Loads and sets up the language files for the plugin.
      */
     public void loadLanguages() {
-        language = plugin.getConfigManager().getLanguage();
+        language = plugin.getConfigProvider().getLanguage();
         String languageFolder = plugin.getDataFolder() + File.separator + "languages";
         File folder = new File(languageFolder);
         String[] defaultLanguages = {"ru_RU"};

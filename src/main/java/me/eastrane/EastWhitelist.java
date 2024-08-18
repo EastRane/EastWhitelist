@@ -29,9 +29,9 @@ public final class EastWhitelist extends JavaPlugin {
     }
 
     private void registerManagers() {
-        getConfigManager();
-        getLanguageManager();
-        getDebugManager();
+        getConfigProvider();
+        getLanguageProvider();
+        getDebugProvider();
         getBaseStorage();
         getListenerManager();
     }
@@ -41,19 +41,19 @@ public final class EastWhitelist extends JavaPlugin {
 
     }
 
-    public ConfigProvider getConfigManager() {
+    public ConfigProvider getConfigProvider() {
         if (configProvider == null) {
             configProvider = new ConfigProvider(this);
         }
         return configProvider;
     }
-    public LanguageProvider getLanguageManager() {
+    public LanguageProvider getLanguageProvider() {
         if (languageProvider == null) {
             languageProvider = new LanguageProvider(this);
         }
         return languageProvider;
     }
-    public DebugProvider getDebugManager() {
+    public DebugProvider getDebugProvider() {
         if (debugProvider == null) {
             debugProvider = new DebugProvider(this);
         }
@@ -61,7 +61,7 @@ public final class EastWhitelist extends JavaPlugin {
     }
     public BaseStorage getBaseStorage() {
         if (baseStorage == null) {
-            switch (getConfigManager().getStorage()) {
+            switch (getConfigProvider().getStorage()) {
                 case "mysql":
                     debugProvider.sendInfo("Using MySQL for data storage.", true);
                     baseStorage = new MySQLStorage(this);

@@ -19,13 +19,13 @@ public class YamlStorage extends BaseStorage {
 
     public YamlStorage(EastWhitelist plugin) {
         super(plugin);
-        this.debugProvider = plugin.getDebugManager();
+        this.debugProvider = plugin.getDebugProvider();
         storageFile = new File(plugin.getDataFolder(), "whitelist.yml");
         if (!storageFile.exists()) {
             try {
                 storageFile.createNewFile();
             } catch (IOException e) {
-                plugin.getDebugManager().sendException(e);
+                plugin.getDebugProvider().sendException(e);
             }
         }
         loadStorage();

@@ -14,8 +14,8 @@ public class EnableCommand extends SubCommand {
 
     public EnableCommand(EastWhitelist plugin) {
         this.plugin = plugin;
-        configProvider = plugin.getConfigManager();
-        languageProvider = plugin.getLanguageManager();
+        configProvider = plugin.getConfigProvider();
+        languageProvider = plugin.getLanguageProvider();
     }
 
     @Override

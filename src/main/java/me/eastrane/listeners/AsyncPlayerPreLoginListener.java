@@ -16,8 +16,8 @@ public class AsyncPlayerPreLoginListener extends BaseListener implements Listene
 
     public AsyncPlayerPreLoginListener(EastWhitelist plugin, boolean isReloadable) {
         super(plugin, isReloadable);
-        configProvider = plugin.getConfigManager();
-        languageProvider = plugin.getLanguageManager();
+        configProvider = plugin.getConfigProvider();
+        languageProvider = plugin.getLanguageProvider();
         baseStorage = plugin.getBaseStorage();
     }
 

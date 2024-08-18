@@ -51,11 +51,11 @@ public class ConfigProvider {
      * It also checks for any differences between the current configuration and the default configuration.
      */
     public void reloadConfig() {
-        plugin.getDebugManager().sendInfo("Reloading configuration file...", true);
+        plugin.getDebugProvider().sendInfo("Reloading configuration file...", true);
         checkConfig();
         plugin.reloadConfig();
         loadConfig();
-        plugin.getLanguageManager().loadLanguages();
+        plugin.getLanguageProvider().loadLanguages();
     }
 
     /**
@@ -72,7 +72,7 @@ public class ConfigProvider {
             FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
             InputStream defaultConfigStream = plugin.getResource("config.yml");
             if (defaultConfigStream == null) {
-                plugin.getDebugManager().sendWarning("Default resource configuration file is missing.");
+                plugin.getDebugProvider().sendWarning("Default resource configuration file is missing.");
                 return;
             }
             FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultConfigStream, StandardCharsets.UTF_8));
@@ -107,10 +107,10 @@ public class ConfigProvider {
                     config.setComments(key, defaultConfig.getComments(key));
                 }
                 config.save(configFile);
-                plugin.getDebugManager().sendWarning("Your configuration file contains differences in the set of options compared to the default version. It was corrected.");
+                plugin.getDebugProvider().sendWarning("Your configuration file contains differences in the set of options compared to the default version. It was corrected.");
             }
         } catch (Exception e) {
-            plugin.getDebugManager().sendException(e);
+            plugin.getDebugProvider().sendException(e);
         }
     }
 
@@ -122,7 +122,7 @@ public class ConfigProvider {
         try {
             config.save(configFile);
         } catch (IOException e) {
-            plugin.getDebugManager().sendException(e);
+            plugin.getDebugProvider().sendException(e);
         }
     }
 

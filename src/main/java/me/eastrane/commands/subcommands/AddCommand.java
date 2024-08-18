@@ -17,7 +17,7 @@ public class AddCommand extends SubCommand {
     public AddCommand(EastWhitelist plugin) {
         this.plugin = plugin;
         baseStorage = plugin.getBaseStorage();
-        languageProvider = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageProvider();
     }
 
     @Override

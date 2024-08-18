@@ -17,7 +17,7 @@ public class CheckCommand extends SubCommand {
     public CheckCommand(EastWhitelist plugin) {
         this.plugin = plugin;
         baseStorage = plugin.getBaseStorage();
-        languageProvider = plugin.getLanguageManager();
+        languageProvider = plugin.getLanguageProvider();
     }
 
     @Override
