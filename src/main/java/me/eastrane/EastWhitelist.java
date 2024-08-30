@@ -4,7 +4,7 @@ import me.eastrane.commands.MainCommand;
 import me.eastrane.listeners.core.ListenerManager;
 import me.eastrane.storages.MySQLStorage;
 import me.eastrane.storages.SQLiteStorage;
-import me.eastrane.storages.YamlStorage;
+import me.eastrane.storages.YAMLStorage;
 import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.ConfigProvider;
 import me.eastrane.utilities.DebugProvider;
@@ -37,7 +37,6 @@ public final class EastWhitelist extends JavaPlugin {
     }
 
     private void registerHandlers() {
-        //getAPIHandler();
 
     }
 
@@ -73,7 +72,7 @@ public final class EastWhitelist extends JavaPlugin {
                 case "yaml":
                 default:
                     debugProvider.sendInfo("Using YAML for data storage.", true);
-                    baseStorage = new YamlStorage(this);
+                    baseStorage = new YAMLStorage(this);
                     break;
             }
         }

@@ -1,13 +1,13 @@
 # EastWhitelist by EastRane
 
 # Language for the plugin.
-# Available options: ru_RU
+# Available options are located in the 'languages' folder within the plugin directory.
 language: ru_RU
 
-# If true, players who are not on the whitelist will not be able to join the server
+# If true, players who aren't on the whitelist will not be able to join the server
 enabled: true
 
-# Available options: yaml, mysql
+# Available options: yaml, sqlite, mysql
 storage: yaml
 
 mysql:
@@ -26,6 +26,9 @@ mysql:
   table: 'whitelist'
   # If true, the server will immediately shut down on any SQL exception
   shutdown_on_exception: false
+
+# Notify OP (or those who have eastwhitelist.notify permission) about players who try to join without being on the whitelist
+notify_op: false
 
 debug:
   # If true, debug messages will be logged to the console

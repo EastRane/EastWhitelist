@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class YamlStorage extends BaseStorage {
+public class YAMLStorage extends BaseStorage {
     private final DebugProvider debugProvider;
     private final File storageFile;
     private FileConfiguration storageConfig;
 
-    public YamlStorage(EastWhitelist plugin) {
+    public YAMLStorage(EastWhitelist plugin) {
         super(plugin);
         this.debugProvider = plugin.getDebugProvider();
         storageFile = new File(plugin.getDataFolder(), "whitelist.yml");
@@ -25,7 +25,7 @@ public class YamlStorage extends BaseStorage {
             try {
                 storageFile.createNewFile();
             } catch (IOException e) {
-                plugin.getDebugProvider().sendException(e);
+                debugProvider.sendException(e);
             }
         }
         loadStorage();
