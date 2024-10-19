@@ -55,6 +55,7 @@ public class YAMLStorage extends BaseStorage {
     }
 
     private void saveStorage() {
+        storageConfig.set("players", null);
         for (Map.Entry<String, PlayerData> entry : players.entrySet()) {
             String nickname = entry.getKey();
             PlayerData data = entry.getValue();

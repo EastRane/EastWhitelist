@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.HandlerList;
 
 public abstract class BaseListener implements Listener {
-    protected EastWhitelist plugin;
+    protected final EastWhitelist plugin;
     private boolean isRegistered = false;
     private final boolean isReloadable;
 
