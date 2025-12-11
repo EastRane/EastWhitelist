@@ -6,8 +6,8 @@ import me.eastrane.utilities.core.BaseConfig;
 public class ConfigProvider extends BaseConfig {
     private String language;
     private boolean debugConsole, debugFile;
-    private boolean enabled, mysqlShutdownOnException, notifyOP;
-    private String storage, mysqlHost, mysqlPort, mysqlDatabase, mysqlUsername, mysqlPassword, mysqlTable;
+    private boolean enabled, mysqlShutdownOnException, notifyOP, httpServerEnabled;
+    private String storage, mysqlHost, mysqlPort, mysqlDatabase, mysqlUsername, mysqlPassword, mysqlTable, httpServerToken;
 
     public ConfigProvider(EastWhitelist plugin) {
         super(plugin);
@@ -28,6 +28,8 @@ public class ConfigProvider extends BaseConfig {
         mysqlPassword = config.getString("mysql.password");
         mysqlTable = config.getString("mysql.table");
         notifyOP = config.getBoolean("notify_op");
+        httpServerEnabled = config.getBoolean("http_server.enabled");
+        httpServerToken = config.getString("http_server.token");
     }
 
     @Override
@@ -78,5 +80,11 @@ public class ConfigProvider extends BaseConfig {
     }
     public boolean isNotifyOP() {
         return notifyOP;
+    }
+    public boolean isHttpServerEnabled() {
+        return httpServerEnabled;
+    }
+    public String getHttpServerToken() {
+        return httpServerToken;
     }
 }

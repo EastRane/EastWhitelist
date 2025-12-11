@@ -30,6 +30,15 @@ mysql:
 # Notify OP (or those who have eastwhitelist.notify permission) about players who try to join without being on the whitelist
 notify_op: false
 
+http_server:
+  # If true, internal http server will be enabled.
+  # Enable only if you checked through source code and know what to do.
+  enabled: true
+  # Port to bind a http server
+  port: 26950
+  # Secret token which will be checked when making connections to http server
+  token: 'SECRET_TOKEN'
+
 debug:
   # If true, debug messages will be logged to the console
   console: true

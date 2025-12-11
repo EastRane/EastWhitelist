@@ -8,6 +8,7 @@ import me.eastrane.storages.YAMLStorage;
 import me.eastrane.storages.core.BaseStorage;
 import me.eastrane.utilities.ConfigProvider;
 import me.eastrane.utilities.DebugProvider;
+import me.eastrane.utilities.HttpProvider;
 import me.eastrane.utilities.LanguageProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,10 +18,11 @@ public final class EastWhitelist extends JavaPlugin {
     private DebugProvider debugProvider;
     private BaseStorage baseStorage;
     private ListenerManager listenerManager;
+    private HttpProvider httpProvider;
 
     @Override
     public void onEnable() {
-        registerManagers();
+        registerProviders();
         registerHandlers();
 
         MainCommand mainCommand = new MainCommand(this);
@@ -28,12 +30,13 @@ public final class EastWhitelist extends JavaPlugin {
         this.getCommand("eastwhitelist").setTabCompleter(mainCommand);
     }
 
-    private void registerManagers() {
+    private void registerProviders() {
         getConfigProvider();
         getLanguageProvider();
         getDebugProvider();
         getBaseStorage();
         getListenerManager();
+        getHttpProvider();
     }
 
     private void registerHandlers() {
@@ -84,5 +87,17 @@ public final class EastWhitelist extends JavaPlugin {
         }
         return listenerManager;
     }
+    public HttpProvider getHttpProvider() {
+        if (httpProvider == null) {
+            httpProvider = new HttpProvider(this);
+        }
+        return httpProvider;
+    }
 
+    @Override
+    public void onDisable() {
+        if (httpProvider != null) {
+            getHttpProvider().disableHttpServer();
+        }
+    }
 }
